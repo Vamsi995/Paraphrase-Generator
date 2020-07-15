@@ -1,10 +1,11 @@
 import streamlit as st
 import requests
 import json
-
+import time
 
 def main():
-    user_input = st.text_area("Enter your text here", None)
+    st.header("Paraphrase Generator")
+    user_input = st.text_area("Enter your text here", "Enter you text here and hit Phrase It")
     decoding_strategy = st.sidebar.selectbox(("Decoding Methods"),("Greedy Decoding", "Beam Search", "Top-k, Top-p sampling"))
     max_len = st.sidebar.slider("Max-Length",0,512,256)
     decoding_params = get_Sliders(decoding_strategy,max_len)
@@ -14,18 +15,18 @@ def main():
         if(decoding_params["beams"] > 0):
             num_return_sequences = st.sidebar.slider("Number of return sentences",0,decoding_params["beams"])
         else:
-            num_return_sequences = 5;
+            num_return_sequences = 5
     else:
         num_return_sequences = st.sidebar.slider("Number of return sentences",0,10)
 
     decoding_params["return_sen_num"] = num_return_sequences
 
     if st.button("Phrase It"):
-        output = forward(user_input, decoding_params)
-        for i in range(len(output)):
-            st.write(output[i])
-
-
+        if(not check_exceptions(decoding_params)):
+            with st.spinner('T5 is processing your text ... '):
+                output = forward(user_input, decoding_params)
+                for i in range(len(output)):
+                    st.write(output[i])
 
 
 def get_Sliders(decoding_strategy, max_len):
@@ -44,11 +45,19 @@ def get_Sliders(decoding_strategy, max_len):
 
     return params
 
+
 def forward(sentence,decoding_params):
     headers = {"content-type":"application/json"}
-    r = requests.post("http://127.0.0.1:5000/run_forward",headers=headers,data=json.dumps({'sentence': sentence, 'decoding_params': decoding_params}))
+    r = requests.post("http://127.0.0.1:5000/run_forward", headers=headers, data=json.dumps({'sentence': sentence, 'decoding_params': decoding_params}))
     data = r.json()
     return data["data"]
+
+
+def check_exceptions(decoding_params):
+    if(decoding_params["return_sen_num"] == 0):
+        st.error("Please set the number of return sequences to more than one")
+        return True
+    return False
 
 if __name__ == "__main__":
     main()
