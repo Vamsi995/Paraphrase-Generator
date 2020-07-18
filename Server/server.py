@@ -11,8 +11,8 @@ def foward():
     sentence = params["sentence"]
     decoding_params = params["decoding_params"]
 
-    model = T5ForConditionalGeneration.from_pretrained('ramsrigouthamg/t5_paraphraser')
-    tokenizer = T5Tokenizer.from_pretrained('t5-base')
+    model = T5ForConditionalGeneration.from_pretrained('Vamsi/T5_Paraphrase_Paws')
+    tokenizer = T5Tokenizer.from_pretrained('Vamsi/T5_Paraphrase_Paws')
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("device ", device)
