@@ -16,9 +16,7 @@ encoding = tokenizer.encode_plus(text,pad_to_max_length=True, return_tensors="pt
 input_ids, attention_masks = encoding["input_ids"].to("cuda"), encoding["attention_mask"].to("cuda")
 
 
-# set top_k = 50 and set top_p = 0.95 and num_return_sequences = 3
-# Have to read about these decodings
-beam_outputs = model.generate(
+outputs = model.generate(
     input_ids=input_ids, attention_mask=attention_masks,
     do_sample=True,
     max_length=256,
@@ -34,8 +32,8 @@ print (sentence)
 print ("\n")
 print ("Paraphrased Questions :: ")
 final_outputs =[]
-for beam_output in beam_outputs:
-    sent = tokenizer.decode(beam_output, skip_special_tokens=True,clean_up_tokenization_spaces=True)
+for output in outputs:
+    sent = tokenizer.decode(output, skip_special_tokens=True,clean_up_tokenization_spaces=True)
     if sent.lower() != sentence.lower() and sent not in final_outputs:
         final_outputs.append(sent)
 
