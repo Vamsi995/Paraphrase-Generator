@@ -1,0 +1,108 @@
+swagger: "2.0"
+info:
+  description: "This is a paraphrase generator used for making paraphrases of given sentences. This uses the T5ForConditionalGeneration Model from the huggingface library. It is trained on the quora question pair dataset. The frontend is handled by streamlit and the backend is on flask."
+  version: "1.0.0"
+  title: "Paraphrase Generator"
+  contact:
+    email: "saivamsi.ds123@gmail.com"
+host: "paraphrase.swagger.io"
+basePath: "/"
+tags:
+- name: "Input from streamlit"
+  description: "Model and tokenizer instantiation"
+schemes:
+- "https"
+- "http"
+paths:
+  /run_forward:
+    post:
+      tags:
+      - "Input from streamlit"
+      summary: "Run the forward method of the model"
+      description: ""
+      operationId: "addPet"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Input_from_streamlit"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+securityDefinitions:
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:pets: "modify pets in your account"
+      read:pets: "read your pets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Input_from_streamlit:
+    type: "object"
+    properties:
+      sentence:
+        type: "string"
+        description: "Input sentence from the user"
+      Decoding_params:
+        type: "object"
+        description: "decoding params"
+        
+  Decoding_Params:
+    type: "object"
+    properties:
+      max_len:
+        type: "integer"
+        format: "int64"
+        description: "Max length of the sentence"
+      strategy:
+        type: "string"
+        description: ""
+      return_sen_num:
+        type: "integer"
+        format: "int64"
+        description: "Number of return sentences"
+      beams:
+        type: "integer"
+        format: "int64"
+        description: "Number of beams"
+      ngram:
+        type: "integer"
+        format: "int64"
+        description: "Number of n-gram penalties"
+      top_p:
+        type: "number"
+        description: "Top p sampling variable"
+      top_k:  
+        type: "integer"
+        format: "int64"
+        description: "Top k sampling variable"
+       
+    
+  
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
