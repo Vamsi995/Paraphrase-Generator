@@ -1,21 +1,31 @@
-from flask import Flask,request
+from flask import Flask, request
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch
 
 app = Flask(__name__)
 
-@app.route("/run_forward",methods=["POST"])
-def foward():
 
+# Selecting the tokenizer
+def select_tokenizer(tokenizer_name):
+    if tokenizer_name == "t5-small":
+        tokenizer = T5Tokenizer.from_pretrained('T5-small')
+    else:
+        tokenizer = T5Tokenizer.from_pretrained('Vamsi/T5_Paraphrase_Paws')
+    return tokenizer
+
+
+@app.route("/run_forward", methods=["POST"])
+def forward():
     params = request.get_json()
+
     sentence = params["sentence"]
     decoding_params = params["decoding_params"]
+    tokenizer_name = decoding_params["tokenizer"]
 
     model = T5ForConditionalGeneration.from_pretrained('Vamsi/T5_Paraphrase_Paws')
-    tokenizer = T5Tokenizer.from_pretrained('Vamsi/T5_Paraphrase_Paws')
+    tokenizer = select_tokenizer(tokenizer_name)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print("device ", device)
     model = model.to(device)
 
     text = "paraphrase: " + sentence + " </s>"
@@ -25,12 +35,12 @@ def foward():
     encoding = tokenizer.encode_plus(text, pad_to_max_length=True, return_tensors="pt")
     input_ids, attention_masks = encoding["input_ids"].to(device), encoding["attention_mask"].to(device)
 
-    if (decoding_params["strategy"] == "Greedy Decoding"):
+    if decoding_params["strategy"] == "Greedy Decoding":
         beam_outputs = model.generate(
             input_ids=input_ids, attention_mask=attention_masks,
             max_length=max_len,
         )
-    elif (decoding_params["strategy"] == "Beam Search"):
+    elif decoding_params["strategy"] == "Beam Search":
         beam_outputs = model.generate(
             input_ids=input_ids, attention_mask=attention_masks,
             max_length=max_len,
@@ -62,19 +72,6 @@ def foward():
         paraphrases.append(f"{i + 1}. {line}")
 
     return {"data": paraphrases}
-
-
-
-@app.route("/")
-def home():
-    return "Hello"
-
-@app.route("/test",methods=["POST"])
-def test():
-    if(request.method == "POST"):
-        data = request.args
-        print(data)
-        return {"data" : data["q"]}
 
 
 if __name__ == "__main__":
