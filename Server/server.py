@@ -1,6 +1,7 @@
 from flask import Flask, request
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch
+import random
 
 app = Flask(__name__)
 
@@ -14,17 +15,7 @@ def select_tokenizer(tokenizer_name):
     return tokenizer
 
 
-@app.route("/run_forward", methods=["POST"])
-def forward():
-    params = request.get_json()
-
-    sentence = params["sentence"]
-    decoding_params = params["decoding_params"]
-    tokenizer_name = decoding_params["tokenizer"]
-
-    model = T5ForConditionalGeneration.from_pretrained('Vamsi/T5_Paraphrase_Paws')
-    tokenizer = select_tokenizer(tokenizer_name)
-
+def run_model(sentence, decoding_params, tokenizer, model):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
 
@@ -60,13 +51,39 @@ def forward():
             num_return_sequences=decoding_params["return_sen_num"]  # Number of sentences to return
         )
 
-    paraphrases = []
-    temp = []
+    return beam_outputs
 
-    for line in beam_outputs:
+
+def preprocess_output(model_output, tokenizer, temp, sentence, decoding_params, model):
+    for line in model_output:
         paraphrase = tokenizer.decode(line, skip_special_tokens=True, clean_up_tokenization_spaces=True)
         if paraphrase.lower() != sentence.lower() and paraphrase not in temp:
             temp.append(paraphrase)
+
+    if len(temp) < decoding_params["return_sen_num"]:
+        sentence = temp[random.randint(0, len(temp))]
+        model_output = run_model(sentence, decoding_params, tokenizer, model)
+        temp = preprocess_output(model_output, tokenizer, temp, sentence, decoding_params, model)
+
+    return temp
+
+
+@app.route("/run_forward", methods=["POST"])
+def forward():
+    params = request.get_json()
+    sentence = params["sentence"]
+    decoding_params = params["decoding_params"]
+
+    tokenizer_name = decoding_params["tokenizer"]
+    model = T5ForConditionalGeneration.from_pretrained('Vamsi/T5_Paraphrase_Paws')
+    tokenizer = select_tokenizer(tokenizer_name)
+
+    model_output = run_model(sentence, decoding_params, tokenizer, model)
+
+    paraphrases = []
+    temp = []
+
+    temp = preprocess_output(model_output, tokenizer, temp, sentence, decoding_params, model)
 
     for i, line in enumerate(temp):
         paraphrases.append(f"{i + 1}. {line}")
