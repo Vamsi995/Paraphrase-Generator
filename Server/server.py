@@ -3,6 +3,17 @@ from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch
 import random
 
+from absl import logging
+
+import tensorflow as tf
+import tensorflow_hub as hub
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import pandas as pd
+import re
+import seaborn as sns
+
 app = Flask(__name__)
 
 
@@ -61,7 +72,7 @@ def preprocess_output(model_output, tokenizer, temp, sentence, decoding_params, 
             temp.append(paraphrase)
 
     if len(temp) < decoding_params["return_sen_num"]:
-        sentence = temp[random.randint(0, len(temp))]
+        sentence = temp[random.randint(0, len(temp) - 1)]
         model_output = run_model(sentence, decoding_params, tokenizer, model)
         temp = preprocess_output(model_output, tokenizer, temp, sentence, decoding_params, model)
 
@@ -89,6 +100,21 @@ def forward():
         paraphrases.append(f"{i + 1}. {line}")
 
     return {"data": paraphrases}
+
+
+@app.route("/embedding", methods=["POST"])
+def embedding():
+    params = request.get_json()
+
+    sentence = params["sentence"]
+    paraphrased_sentences = params["output"]
+
+    module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
+    model_USE = hub.load(module_url)
+
+    embedding_vectors = model_USE(input)
+
+    return {"data": embedding_vectors}
 
 
 if __name__ == "__main__":

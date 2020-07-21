@@ -1,9 +1,16 @@
 import streamlit as st
 import requests
 import json
+import numpy as np
+import seaborn as sns
 
 
 def main():
+    # Applying styles to the buttons
+    st.markdown("""<style>
+                        .st-eb {
+                            background-color:#F9786F
+                        } </style>""", unsafe_allow_html=True)
 
     # Heading
     st.header("Paraphrase Generator")
@@ -39,7 +46,6 @@ def main():
         num_return_sequences = st.sidebar.slider("Number of return sentences", 0, 10)
 
     decoding_params["return_sen_num"] = num_return_sequences
-
     # Phrase it button
     if st.button("Phrase It"):
 
@@ -53,6 +59,41 @@ def main():
                 # Writing the output
                 for i in range(len(output)):
                     st.write(output[i])
+
+    if st.button("Semantic Similarity Map"):
+
+        if output is not None:
+            with st.spinner('USE is making your map ...'):
+                embedding_vectors = make_map(user_input, output)
+                # run_and_plot(output, embedding_vectors)
+                print(embedding_vectors)
+
+
+def plot_similarity(labels, features, rotation):
+    corr = np.inner(features, features)
+    sns.set(font_scale=1.2)
+    g = sns.heatmap(
+        corr,
+        xticklabels=labels,
+        yticklabels=labels,
+        vmin=0,
+        vmax=1,
+        cmap="YlOrRd")
+    g.set_xticklabels(labels, rotation=rotation)
+    g.set_title("Semantic Textual Similarity")
+
+
+def run_and_plot(messages_, message_embeddings_):
+    plot_similarity(messages_, message_embeddings_, 90)
+
+
+def make_map(sentence, output):
+    headers = {"content-type": "application/json"}
+    r = requests.post("http://127.0.0.1:5000/embedding", headers=headers,
+                      data=json.dumps({'sentence': sentence, 'output': output}))
+    data = r.json()
+
+    return data["data"]
 
 
 def get_sliders(decoding_strategy, max_len):
