@@ -62,11 +62,14 @@ def main():
 
     if st.button("Semantic Similarity Map"):
 
-        if output is not None:
-            with st.spinner('USE is making your map ...'):
-                embedding_vectors = make_map(user_input, output)
-                # run_and_plot(output, embedding_vectors)
-                print(embedding_vectors)
+        with st.spinner('USE is making your map ...'):
+            (embedding_vectors, paraphrased_sentences) = make_map(user_input)
+            count = len(paraphrased_sentences)
+            label_in = np.arange(count) + 1
+            for i, line in enumerate(paraphrased_sentences):
+                st.write(f"{i + 1}. {line}")
+            run_and_plot(label_in.tolist(), embedding_vectors)
+            # print(embedding_vectors)
 
 
 def plot_similarity(labels, features, rotation):
@@ -79,21 +82,22 @@ def plot_similarity(labels, features, rotation):
         vmin=0,
         vmax=1,
         cmap="YlOrRd")
-    g.set_xticklabels(labels, rotation=rotation)
+    g.set_xticklabels(labels)
     g.set_title("Semantic Textual Similarity")
+    st.pyplot()
 
 
 def run_and_plot(messages_, message_embeddings_):
     plot_similarity(messages_, message_embeddings_, 90)
 
 
-def make_map(sentence, output):
+def make_map(sentence):
     headers = {"content-type": "application/json"}
     r = requests.post("http://127.0.0.1:5000/embedding", headers=headers,
-                      data=json.dumps({'sentence': sentence, 'output': output}))
+                      data=json.dumps({'sentence': sentence}))
     data = r.json()
 
-    return data["data"]
+    return data["data"], data["paraphrased"]
 
 
 def get_sliders(decoding_strategy, max_len):

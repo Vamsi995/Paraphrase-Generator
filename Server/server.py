@@ -16,6 +16,7 @@ import seaborn as sns
 
 app = Flask(__name__)
 
+output_cache = []
 
 # Selecting the tokenizer
 def select_tokenizer(tokenizer_name):
@@ -96,6 +97,9 @@ def forward():
 
     temp = preprocess_output(model_output, tokenizer, temp, sentence, decoding_params, model)
 
+    global output_cache
+    output_cache = temp
+
     for i, line in enumerate(temp):
         paraphrases.append(f"{i + 1}. {line}")
 
@@ -107,15 +111,15 @@ def embedding():
     params = request.get_json()
 
     sentence = params["sentence"]
-    paraphrased_sentences = params["output"]
+    paraphrased_sentences = output_cache
 
     module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
     model_USE = hub.load(module_url)
 
-    embedding_vectors = model_USE(input)
+    embedding_vectors = model_USE(paraphrased_sentences)
+    print(embedding_vectors.numpy().tolist())
 
-    return {"data": embedding_vectors}
-
+    return {"data": embedding_vectors.numpy().tolist(), "paraphrased": paraphrased_sentences}
 
 if __name__ == "__main__":
     app.run()
