@@ -61,6 +61,13 @@ $ python server.py
 
 The initial server call will take some time as it downloads the model parameters. The later calls will be relatively faster as it will store the model params in the cahce.
 
+
+![](/Images/Paraphrase.png)
+
+
+![](/Images/TextualSimilarity.png)
+
+
 ## General Usage
 PyTorch and TF models are available
 ​
