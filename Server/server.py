@@ -50,6 +50,7 @@ def run_model(sentence, decoding_params, tokenizer, model):
             num_beams=decoding_params["beams"],
             no_repeat_ngram_size=decoding_params["ngram"],
             early_stopping=True,
+            temperature=decoding_params["temperature"],
             num_return_sequences=decoding_params["return_sen_num"]  # Number of sentences to return
         )
     else:
@@ -60,6 +61,7 @@ def run_model(sentence, decoding_params, tokenizer, model):
             top_k=decoding_params["top_k"],
             top_p=decoding_params["top_p"],
             early_stopping=True,
+            # temperature=decoding_params["temperature"],
             num_return_sequences=decoding_params["return_sen_num"]  # Number of sentences to return
         )
 

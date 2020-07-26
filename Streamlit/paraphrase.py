@@ -110,12 +110,14 @@ def get_sliders(decoding_strategy, max_len):
         no_repeat_ngram_size = st.sidebar.slider("N-Gram Size", 0, 10)
         params["beams"] = beams_no
         params["ngram"] = no_repeat_ngram_size
+        params["temperature"] = st.sidebar.slider("Temperature", 0.0, 1.0)
 
     elif decoding_strategy == "Top-k, Top-p sampling":
         top_p = st.sidebar.slider("Top-P", 0.0, 1.0)
         top_k = st.sidebar.slider("Top-K", 0, max_len)
         params["top_p"] = top_p
         params["top_k"] = top_k
+        params["temperature"] = st.sidebar.slider("Temperature", 0.0, 1.0)
 
     return params
 
