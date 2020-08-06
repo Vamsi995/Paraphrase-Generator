@@ -29,7 +29,7 @@ def main():
     max_len = st.sidebar.slider("Max-Length", 0, 512, 256)
 
     # Calling get_Sliders() to get all the decoding parameters
-    decoding_params = get_sliders(decoding_strategy, max_len)
+    decoding_params = get_sliders(decoding_strategy, max_len, user_input)
 
     # Setting additional decoding params
     decoding_params["tokenizer"] = tokenizer_name
@@ -42,10 +42,13 @@ def main():
             num_return_sequences = st.sidebar.slider("Number of return sentences", 0, decoding_params["beams"])
         else:
             num_return_sequences = 5
-    else:
-        num_return_sequences = st.sidebar.slider("Number of return sentences", 0, 10)
+        decoding_params["return_sen_num"] = num_return_sequences
 
-    decoding_params["return_sen_num"] = num_return_sequences
+    elif decoding_strategy == "Top-k, Top-p sampling":
+        num_return_sequences = st.sidebar.slider("Number of return sentences", 0, 10)
+        decoding_params["return_sen_num"] = num_return_sequences
+        decoding_params["common"] = st.sidebar.slider("Common Words", 0, len(user_input.split(" ")))
+
     # Phrase it button
     if st.button("Phrase It"):
 
@@ -100,7 +103,7 @@ def make_map(sentence):
     return data["data"], data["paraphrased"]
 
 
-def get_sliders(decoding_strategy, max_len):
+def get_sliders(decoding_strategy, max_len, user_input):
     params = {}
 
     # Setting different parameters for Beam Search and top-p top-k sampling
@@ -117,7 +120,6 @@ def get_sliders(decoding_strategy, max_len):
         top_k = st.sidebar.slider("Top-K", 0, max_len)
         params["top_p"] = top_p
         params["top_k"] = top_k
-        params["temperature"] = st.sidebar.slider("Temperature", 0.0, 1.0)
 
     return params
 
@@ -133,11 +135,14 @@ def forward(sentence, decoding_params):
 
 def check_exceptions(decoding_params):
     # Checking for zero on the num of return sequences
-    if decoding_params["return_sen_num"] == 0:
-        st.error("Please set the number of return sequences to more than one")
-        return True
-    return False
+    if decoding_params["strategy"] != "Greedy Decoding":
 
+        if decoding_params["return_sen_num"] == 0:
+            st.error("Please set the number of return sequences to more than one")
+            return True
+        return False
+    else:
+        return False
 
 if __name__ == "__main__":
     main()
