@@ -1,4 +1,4 @@
-# Project Title
+# Paraphrase Generator with T5
 
 A Paraphrase-Generator built using transformers which takes an English sentence as an input and produces a set of paraphrased sentences.
 This is an NLP task of conditional text-generation. The model used here is the [T5ForConditionalGeneration](https://huggingface.co/transformers/model_doc/t5.html#t5forconditionalgeneration) from the [huggingface transformers](https://huggingface.co/transformers)  library. 
