@@ -101,10 +101,27 @@ for output in outputs:
 ```
 
 
+## Dockerfile
 
+The repository also contains a minimal reproducible Dockerfile that can be used to spin up a server with the API endpoints to perform text paraphrasing.
 
+_Note_: The Dockerfile uses the built-in Flask development server, hence it's not recommended for production usage. It should be replaced with a production-ready WSGI server.
 
+To start the local server you will need just three lines:
 
+```
+git clone <this-repository> && cd <the-directory>
+docker build -t paraphrase .
+docker run -p 5000:5000 paraphrase
+```
+
+and then the API is available on `localhost:5000`
+
+```
+curl -XPOST localhost:5000/run_forward \
+-H 'content-type: application/json' \
+-d '{"sentence": "What is the best paraphrase of a long sentence that does not say much?", "decoding_params": {"tokenizer": "", "max_len": 512, "strategy": "", "top_k": 168, "top_p": 0.95, "return_sen_num": 3}}'
+```
 
 ## Built With
 
