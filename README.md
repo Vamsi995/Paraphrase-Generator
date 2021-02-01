@@ -107,10 +107,9 @@ The repository also contains a minimal reproducible Dockerfile that can be used 
 
 _Note_: The Dockerfile uses the built-in Flask development server, hence it's not recommended for production usage. It should be replaced with a production-ready WSGI server.
 
-To start the local server you will need just three lines:
+After cloning the repository, starting the local server it's a two lines script:
 
 ```
-git clone <this-repository> && cd <the-directory>
 docker build -t paraphrase .
 docker run -p 5000:5000 paraphrase
 ```
