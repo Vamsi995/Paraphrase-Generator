@@ -23,7 +23,7 @@ def main():
 
     # Select Box for decoding strategies
     decoding_strategy = st.sidebar.selectbox("Decoding Methods",
-                                             ("Greedy Decoding", "Beam Search", "Top-k, Top-p sampling"))
+                                             ("Beam Search", "Top-k, Top-p sampling"))
 
     # Slider for max_len
     max_len = st.sidebar.slider("Max-Length", 0, 512, 256)

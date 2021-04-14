@@ -88,7 +88,7 @@ def checkDuplicate(paraphrase, decoding_params, temp):
 
 def preprocess_output(model_output, tokenizer, temp, sentence, decoding_params, model):
     for line in model_output:
-        paraphrase = tokenizer.decode(line, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+        paraphrase = tokenizer.decode(line)
         if paraphrase.lower() != sentence.lower() and paraphrase not in temp:
             if decoding_params["strategy"] == "Top-k, Top-p sampling":
                 if checkDuplicate(paraphrase, decoding_params, temp):
