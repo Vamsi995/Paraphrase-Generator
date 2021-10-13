@@ -73,17 +73,19 @@ PyTorch and TF models are available
 ​
 ```python
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-​
+
 tokenizer = AutoTokenizer.from_pretrained("Vamsi/T5_Paraphrase_Paws")  
 model = AutoModelForSeq2SeqLM.from_pretrained("Vamsi/T5_Paraphrase_Paws")
-​
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 sentence = "This is something which i cannot understand at all"
 
 text =  "paraphrase: " + sentence + " </s>"
 
 encoding = tokenizer.encode_plus(text,pad_to_max_length=True, return_tensors="pt")
-input_ids, attention_masks = encoding["input_ids"].to("cuda"), encoding["attention_mask"].to("cuda")
 
+input_ids, attention_masks = encoding["input_ids"].to(device), encoding["attention_mask"].to(device)
 
 outputs = model.generate(
     input_ids=input_ids, attention_mask=attention_masks,
@@ -98,6 +100,7 @@ outputs = model.generate(
 for output in outputs:
     line = tokenizer.decode(output, skip_special_tokens=True,clean_up_tokenization_spaces=True)
     print(line)
+
 ```
 
 
