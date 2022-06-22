@@ -1,6 +1,6 @@
 seaborn==0.10.1
 nltk==3.6.6
-numpy==1.21.0
+numpy==1.22.0
 torch==1.6.0
 Flask==1.1.2
 transformers==3.3.1
