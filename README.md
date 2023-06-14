@@ -135,5 +135,27 @@ curl -XPOST localhost:5000/run_forward \
 ## Authors
 - [Sai Vamsi Alisetti](https://github.com/Vamsi995)
 
-## Acknowledgments
-- [Sampath Kethineedi](https://github.com/sampathkethineedi)
+## Citing
+
+```bibtex
+@misc{sumorl,
+    author = {Sai Vamsi Alisetti},
+    title = {{Paraphrase-Generator}},
+    year = {2020},
+    publisher = {GitHub},
+    journal = {GitHub repository},
+    howpublished = {\url{https://github.com/Vamsi995/Paraphrase-Generator}},
+}
+```
+List of publications using Paraphrase-Generator (please open a pull request to add missing entries):
+
+
+[DeepA2: A Modular Framework for Deep Argument Analysis
+with Pretrained Neural Text2Text Language Models](https://arxiv.org/pdf/2110.01509.pdf)
+
+[Sports Narrative Enhancement with Natural Language
+Generation](https://www.sloansportsconference.com/research-papers/sports-narrative-enhancement-with-natural-language-generation)
+
+[EHRSQL: A Practical Text-to-SQL Benchmark for
+Electronic Health Records](https://arxiv.org/abs/2301.07695)
+
