@@ -138,7 +138,7 @@ curl -XPOST localhost:5000/run_forward \
 ## Citing
 
 ```bibtex
-@misc{sumorl,
+@misc{paraphrasegen,
     author = {Sai Vamsi Alisetti},
     title = {{Paraphrase-Generator}},
     year = {2020},
