@@ -157,7 +157,7 @@ with Pretrained Neural Text2Text Language Models](https://arxiv.org/pdf/2110.015
 Generation](https://www.sloansportsconference.com/research-papers/sports-narrative-enhancement-with-natural-language-generation)
 
 [EHRSQL: A Practical Text-to-SQL Benchmark for
-Electronic Health Records](https://arxiv.org/abs/2301.07695)
+Electronic Health Records](https://proceedings.neurips.cc/paper_files/paper/2022/file/643e347250cf9289e5a2a6c1ed5ee42e-Paper-Datasets_and_Benchmarks.pdf)
 
 [Wissensgenerierung für deutschprachige
 Chatbots](https://fbi.h-da.de/fileadmin/Personen/fbi1119/Michel-Masterarbeit.pdf)
