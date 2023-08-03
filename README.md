@@ -159,3 +159,6 @@ Generation](https://www.sloansportsconference.com/research-papers/sports-narrati
 [EHRSQL: A Practical Text-to-SQL Benchmark for
 Electronic Health Records](https://arxiv.org/abs/2301.07695)
 
+[Wissensgenerierung für deutschprachige
+Chatbots](https://fbi.h-da.de/fileadmin/Personen/fbi1119/Michel-Masterarbeit.pdf)
+
