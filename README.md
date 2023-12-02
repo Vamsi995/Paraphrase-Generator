@@ -162,3 +162,6 @@ Electronic Health Records](https://proceedings.neurips.cc/paper_files/paper/2022
 [Wissensgenerierung für deutschprachige
 Chatbots](https://fbi.h-da.de/fileadmin/Personen/fbi1119/Michel-Masterarbeit.pdf)
 
+[Causal Document-Grounded Dialogue Pre-training](https://arxiv.org/abs/2305.10927)
+
+[Creativity Evaluation Method for Procedural Content Generated Game Items via Machine Learning](https://ieeexplore.ieee.org/abstract/document/9914506)
