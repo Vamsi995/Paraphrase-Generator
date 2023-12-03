@@ -4,6 +4,24 @@ A Paraphrase-Generator built using transformers which takes an English sentence 
 This is an NLP task of conditional text-generation. The model used here is the [T5ForConditionalGeneration](https://huggingface.co/transformers/model_doc/t5.html#t5forconditionalgeneration) from the [huggingface transformers](https://huggingface.co/transformers)  library. 
 This model is trained on the [Google's PAWS Dataset](https://github.com/google-research-datasets/paws) and the model is saved in the transformer model hub of hugging face library under the name [Vamsi/T5_Paraphrase_Paws](https://huggingface.co/Vamsi/T5_Paraphrase_Paws).
 
+List of publications using Paraphrase-Generator (please open a pull request to add missing entries):
+
+[DeepA2: A Modular Framework for Deep Argument Analysis
+with Pretrained Neural Text2Text Language Models](https://arxiv.org/pdf/2110.01509.pdf)
+
+[Sports Narrative Enhancement with Natural Language
+Generation](https://www.sloansportsconference.com/research-papers/sports-narrative-enhancement-with-natural-language-generation)
+
+[EHRSQL: A Practical Text-to-SQL Benchmark for
+Electronic Health Records](https://proceedings.neurips.cc/paper_files/paper/2022/file/643e347250cf9289e5a2a6c1ed5ee42e-Paper-Datasets_and_Benchmarks.pdf)
+
+[Wissensgenerierung für deutschprachige
+Chatbots](https://fbi.h-da.de/fileadmin/Personen/fbi1119/Michel-Masterarbeit.pdf)
+
+[Causal Document-Grounded Dialogue Pre-training](https://arxiv.org/abs/2305.10927)
+
+[Creativity Evaluation Method for Procedural Content Generated Game Items via Machine Learning](https://ieeexplore.ieee.org/abstract/document/9914506)
+
 
 ## Getting Started
 
@@ -147,21 +165,3 @@ curl -XPOST localhost:5000/run_forward \
     howpublished = {\url{https://github.com/Vamsi995/Paraphrase-Generator}},
 }
 ```
-List of publications using Paraphrase-Generator (please open a pull request to add missing entries):
-
-
-[DeepA2: A Modular Framework for Deep Argument Analysis
-with Pretrained Neural Text2Text Language Models](https://arxiv.org/pdf/2110.01509.pdf)
-
-[Sports Narrative Enhancement with Natural Language
-Generation](https://www.sloansportsconference.com/research-papers/sports-narrative-enhancement-with-natural-language-generation)
-
-[EHRSQL: A Practical Text-to-SQL Benchmark for
-Electronic Health Records](https://proceedings.neurips.cc/paper_files/paper/2022/file/643e347250cf9289e5a2a6c1ed5ee42e-Paper-Datasets_and_Benchmarks.pdf)
-
-[Wissensgenerierung für deutschprachige
-Chatbots](https://fbi.h-da.de/fileadmin/Personen/fbi1119/Michel-Masterarbeit.pdf)
-
-[Causal Document-Grounded Dialogue Pre-training](https://arxiv.org/abs/2305.10927)
-
-[Creativity Evaluation Method for Procedural Content Generated Game Items via Machine Learning](https://ieeexplore.ieee.org/abstract/document/9914506)
