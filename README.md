@@ -77,7 +77,7 @@ $ cd Server
 $ python server.py
 ```
 
-The initial server call will take some time as it downloads the model parameters. The later calls will be relatively faster as it will store the model params in the cahce.
+The initial server call will take some time as it downloads the model parameters. The later calls will be relatively faster as it will store the model params in the cache.
 
 
 ![](/Images/Paraphrase.png)
