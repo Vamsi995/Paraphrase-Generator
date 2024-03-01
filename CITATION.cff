@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Alisetti"
+  given-names: "Sai Vamsi"
+title: "Paraphrase Generator with T5"
+version: 1.0
+doi: 10.5281/zenodo.10731518
+date-released: 2020
+url: "https://github.com/Vamsi995/Paraphrase-Generator"
