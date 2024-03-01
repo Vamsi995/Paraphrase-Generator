@@ -1,5 +1,7 @@
 # Paraphrase Generator with T5
 
+[![DOI](https://zenodo.org/badge/279842268.svg)](https://zenodo.org/doi/10.5281/zenodo.10731517)
+
 A Paraphrase-Generator built using transformers which takes an English sentence as an input and produces a set of paraphrased sentences.
 This is an NLP task of conditional text-generation. The model used here is the [T5ForConditionalGeneration](https://huggingface.co/transformers/model_doc/t5.html#t5forconditionalgeneration) from the [huggingface transformers](https://huggingface.co/transformers)  library. 
 This model is trained on the [Google's PAWS Dataset](https://github.com/google-research-datasets/paws) and the model is saved in the transformer model hub of hugging face library under the name [Vamsi/T5_Paraphrase_Paws](https://huggingface.co/Vamsi/T5_Paraphrase_Paws).
