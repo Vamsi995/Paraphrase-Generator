@@ -158,12 +158,9 @@ curl -XPOST localhost:5000/run_forward \
 ## Citing
 
 ```bibtex
-@misc{paraphrasegen,
-    author = {Sai Vamsi Alisetti},
-    title = {{Paraphrase-Generator}},
-    year = {2020},
-    publisher = {GitHub},
-    journal = {GitHub repository},
-    howpublished = {\url{https://github.com/Vamsi995/Paraphrase-Generator}},
+@misc{alisetti2021paraphrase,
+  title={Paraphrase generator with t5},
+  author={Alisetti, Sai Vamsi},
+  year={2021}
 }
 ```
