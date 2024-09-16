@@ -1,5 +1,5 @@
 seaborn==0.10.1
-nltk==3.6.6
+nltk==3.9
 numpy==1.22.0
 torch==1.13.1
 Flask==2.3.2
