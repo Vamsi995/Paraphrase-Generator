@@ -5,7 +5,7 @@ torch==2.2.0
 Flask==2.3.2
 transformers==4.50.0
 pandas==1.0.5
-requests==2.32.0
+requests==2.32.4
 httplib2==0.19.0
 pytorch_lightning==2.4.0
 streamlit==1.37.0
