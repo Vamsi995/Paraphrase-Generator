@@ -3,7 +3,7 @@ nltk==3.9
 numpy==1.22.0
 torch==2.2.0
 Flask==2.3.2
-transformers==4.50.0
+transformers==4.52.1
 pandas==1.0.5
 requests==2.32.0
 httplib2==0.19.0
